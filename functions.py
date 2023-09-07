@@ -1,5 +1,4 @@
 import requests
-import schedule
 import pandas as pd
 import numpy as np
 import math
@@ -80,7 +79,10 @@ def isValidBuoy(deg, long):
 
 
 def builddata(df_buoys):
-    df_main = pd.DataFrame(columns = df_buoy_data.columns.tolist())
+    cols = ['#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD']
+    df_main = pd.DataFrame(columns = cols)
+    df_main = df_main.rename(columns = {"mm": "minutes"})
+    # df_main = pd.DataFrame(columns = df_buoy_data.columns.tolist())
     #for i in range(len(df_buoys)): 
     for i in range(len(df_buoys)):
         lat, long = parse_coordinates(df_buoys.LOCATION.iloc[i])
