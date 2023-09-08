@@ -34,7 +34,7 @@ def getBuoyData(buoyid):
     # handling data if request is successful
     rows = rows.text.strip().split('\n')
     headers = rows[0].strip().split()
-    data = [row.split() for row in rows[1:]]
+    data = [row.split() for row in rows[2:]]
 
     df_buoy_data = pd.DataFrame(data, columns=headers)
     return df_buoy_data
@@ -73,6 +73,7 @@ def parse_coordinates(input_string):
     
 
 def isValidBuoy(deg, long): 
+    # print("valid")
     if deg >= 160 and deg <= 360 and long < 0: 
         return True
     return False
@@ -81,9 +82,6 @@ def isValidBuoy(deg, long):
 def builddata(df_buoys):
     cols = ['#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD']
     df_main = pd.DataFrame(columns = cols)
-    df_main = df_main.rename(columns = {"mm": "minutes"})
-    # df_main = pd.DataFrame(columns = df_buoy_data.columns.tolist())
-    #for i in range(len(df_buoys)): 
     for i in range(len(df_buoys)):
         lat, long = parse_coordinates(df_buoys.LOCATION.iloc[i])
         angle = calculate_angle((lat, long))
@@ -92,10 +90,12 @@ def builddata(df_buoys):
             try: 
                 df_main = pd.concat([df_main, getBuoyData(buoy_id)])
                 # df_main.append(getBuoyData(buoy_id))
-                print(f"got valid data for {buoy_id}")
+                # print(f"got valid data for {buoy_id}")
             except: 
                 pass
                 # print(f"couldn't get data for buoy {buoy_id}")
+        if i % (len(df_buoys) // 10) == 0: 
+            print(f"{i / len(df_buoys) * 100}% complete")
 
-    df_main = df_main.rename(columns = {"mm": "minutes"})
+    df_main = df_main.rename(columns = {"mm": "minutes", "#YY": "Year", "MM":"Month", "DD":"Day"})
     return df_main

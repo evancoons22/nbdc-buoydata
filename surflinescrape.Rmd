@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+output: html_document
+date: '2023-09-08'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rvest)
+library(polite)
+
+session <- bow("https://www.surfline.com/surf-report/el-porto/5842041f4e65fad6a7708906?camId=5a203892096c27001ac4f18d") 
+
+surfpage <- session %>% 
+  scrape(content = "text/html; charset=UTF-8")
+
+# Now that the page content has been scraped, you do not need to request it 
+# again. Use the object teampage and html_nodes() to extract the desired nodes,
+# for example, you'll want to extract the team names among other values.
+
+waveht <- surfpage %>% html_nodes(".mui-style-qfj0fo") %>% html_text()
+
+
+print(waveh)
+```
+

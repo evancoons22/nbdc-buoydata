@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/evancoons/projects/nbdc-buoydata/update.py", line 1, in <module>
-    import requests
-ModuleNotFoundError: No module named 'requests'
-Traceback (most recent call last):
-  File "/Users/evancoons/projects/nbdc-buoydata/update.py", line 1, in <module>
-    import requests
-ModuleNotFoundError: No module named 'requests'
-nohup: python: No such file or directory

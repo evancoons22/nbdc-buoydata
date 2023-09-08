@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/evancoons/projects/nbdc-buoydata/update.py", line 16, in <module>
-    df_buoys = functions.getRelevantBuoys()
-AttributeError: module 'functions' has no attribute 'getRelevantBuoys'
