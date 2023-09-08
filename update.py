@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import sqlite3
 import time
+import subprocess
 
 import functions
 
@@ -16,10 +17,21 @@ conn = sqlite3.connect('db.db')
 def update_data():
     print("the data is being updated")
     
-    df_buoys = functions.getRelevantBuoys()
-    df_main = functions.builddata(df_buoys)
-    df_main.to_sql('main', conn, if_exists='append', index=False)
-    print("successfuly udpated data")
+    try: 
+        df_buoys = functions.getRelevantBuoys()
+        df_main = functions.builddata(df_buoys)
+        df_main.to_sql('main', conn, if_exists='append', index=False)
+        print("successfuly udpated buoy data")
+    except: 
+        print("did not update buoy data")
+        pass
+
+    try: 
+        subprocess.run(['python', 'updateht.py'])
+        print("updated conditions data")
+    except: 
+        print("did not update conditions data")
+        pass
 
     # Get current date and time
     now = datetime.now()
@@ -41,7 +53,7 @@ schedule.every().day.at("12:00").do(update_data)
 schedule.every().day.at("18:00").do(update_data)
 schedule.every().day.at("00:00").do(update_data)
 
-update_data()
+# update_data()
 # Main loop to keep the script running
 while True:
     schedule.run_pending()
