@@ -80,7 +80,9 @@ def isValidBuoy(deg, long):
 
 
 def builddata(df_buoys):
-    cols = ['#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD']
+    # Convert Year, Month, Day, Hour, minute into one datetime column
+       
+    cols = ['buoy_id', '#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD']
     df_main = pd.DataFrame(columns = cols)
     for i in range(len(df_buoys)):
         lat, long = parse_coordinates(df_buoys.LOCATION.iloc[i])
@@ -88,14 +90,33 @@ def builddata(df_buoys):
         buoy_id = str(df_buoys.iloc[i, 0])
         if isValidBuoy(angle, long): 
             try: 
-                df_main = pd.concat([df_main, getBuoyData(buoy_id)])
+                temp = getBuoyData(buoy_id)
+                temp['buoy_id'] = buoy_id
+                df_main = pd.concat([df_main, temp])
+                break
                 # df_main.append(getBuoyData(buoy_id))
                 # print(f"got valid data for {buoy_id}")
             except: 
                 pass
                 # print(f"couldn't get data for buoy {buoy_id}")
-        if i % (len(df_buoys) // 10) == 0: 
-            print(f"{i / len(df_buoys) * 100}% complete")
+        # if i % (len(df_buoys) // 10) == 0: 
+            # print(f"{i / len(df_buoys) * 100}% complete")
+    # Convert the columns to string type
+    df_main[['#YY', 'MM', 'DD', 'hh', 'mm']] = df_main[['#YY', 'MM', 'DD', 'hh', 'mm']].astype(str)
+    
+    # Add leading zeros to single digit month, day, hour and minute
+    df_main['MM'] = df_main['MM'].str.zfill(2)
+    df_main['DD'] = df_main['DD'].str.zfill(2)
+    df_main['hh'] = df_main['hh'].str.zfill(2)
+    df_main['mm'] = df_main['mm'].str.zfill(2)
+    
+    # Combine the columns to form a datetime string and then convert to datetime
+    df_main['datetime'] = pd.to_datetime(df_main['#YY'] + df_main['MM'] + df_main['DD'] + df_main['hh'] + df_main['mm'], format='%Y%m%d%H%M')
 
-    df_main = df_main.rename(columns = {"mm": "minutes", "#YY": "Year", "MM":"Month", "DD":"Day"})
+    # df_main['datetime'] = pd.to_datetime(df_main[['#YY', 'MM', 'DD', 'hh', 'mm']])
+    df_main = df_main.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'])
+    with open('output.txt', 'a') as f: 
+        f.write(f"{df_main}\n")
+
+    # df_main = df_main.rename(columns = {"mm": "minutes", "#YY": "Year", "MM":"Month", "DD":"Day"})
     return df_main
