@@ -1,2 +1,2 @@
-nohup python update.py > outputs/output.txt &
-
+#!/usr/bin/env bash
+nohup python update.py > output.txt 2>&1 &

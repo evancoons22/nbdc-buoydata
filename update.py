@@ -27,6 +27,7 @@ def update_data():
         pass
 
     try: 
+        
         subprocess.run(['python', 'updateht.py'])
         print("updated conditions data")
     except: 
