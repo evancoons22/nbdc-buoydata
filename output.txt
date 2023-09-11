@@ -1,4 +1,8 @@
-going to init data at 2023-09-10 18:21:09.992053
-successfully init buoy data at 2023-09-10 18:21:09.992053
+going to init data at 2023-09-10 21:33:00.374332
+successfully init buoy data at 2023-09-10 21:33:00.374332
+successfully updated buoy data at 2023-09-10 21:38:35.850701
+successfully updated buoy data at 2023-09-10 21:46:15.754809
+with 1 rowsupdated conditions data
+successfully updated buoy data at 2023-09-10 21:51:31.651947
+with 4 rows
 updated conditions data
-did not update buoy data at 2023-09-10 18:25:00.300214
