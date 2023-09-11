@@ -93,14 +93,10 @@ def builddata(df_buoys):
                 temp = getBuoyData(buoy_id)
                 temp['buoy_id'] = buoy_id
                 df_main = pd.concat([df_main, temp])
-                break
-                # df_main.append(getBuoyData(buoy_id))
-                # print(f"got valid data for {buoy_id}")
             except: 
+                if len(df_buoys) == 1: 
+                    raise ValueError("buoy doesn't exist")
                 pass
-                # print(f"couldn't get data for buoy {buoy_id}")
-        # if i % (len(df_buoys) // 10) == 0: 
-            # print(f"{i / len(df_buoys) * 100}% complete")
     # Convert the columns to string type
     df_main[['#YY', 'MM', 'DD', 'hh', 'mm']] = df_main[['#YY', 'MM', 'DD', 'hh', 'mm']].astype(str)
     
@@ -115,8 +111,6 @@ def builddata(df_buoys):
 
     # df_main['datetime'] = pd.to_datetime(df_main[['#YY', 'MM', 'DD', 'hh', 'mm']])
     df_main = df_main.drop(columns=['#YY', 'MM', 'DD', 'hh', 'mm'])
-    with open('output.txt', 'a') as f: 
-        f.write(f"{df_main}\n")
 
     # df_main = df_main.rename(columns = {"mm": "minutes", "#YY": "Year", "MM":"Month", "DD":"Day"})
     return df_main
