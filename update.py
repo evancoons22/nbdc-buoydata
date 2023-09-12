@@ -24,24 +24,26 @@ def update_conditions():
         pass
 
 def init_buoy_data():
-    current_date = datetime.now()
+    # current_date = datetime.now()
     with open('output.txt', 'w') as f: 
-        f.write(f"going to init data at {current_date}\n")
+        f.write(f"going to init data at {datetime.now()}\n")
     try: 
         df_buoys = functions.getRelevantBuoys()
         df_main = functions.builddata(df_buoys)
         df_main.to_sql('main', conn, if_exists='append', index=False)
         with open('output.txt', 'a') as f:
-            f.write(f"successfully init buoy data at {current_date}\n")
+            f.write(f"successfully init buoy data at {datetime.now()}\n")
     except: 
         with open('output.txt', 'a') as f:
-            f.write(f"did not init buoy data at {current_date}\n")
+            f.write(f"did not init buoy data at {datetime.now()}\n")
         pass
 
 # updating buoy data by only replacing dates that haven't been recorded yet 
 def update_buoy_data(): 
+    with open('output.txt', 'a') as f: 
+        f.write(f"\n \nbeginning buoy update at {datetime.now()}\n")
     try:
-        current_date = datetime.now()
+        # current_date = datetime.now()
         df_buoys = functions.getRelevantBuoys()
         df_buoys = df_buoys.rename(columns = {"# STATION_ID": "buoy_id"})
 
@@ -57,20 +59,20 @@ def update_buoy_data():
             n += len(df_main)
         # writing to output to update
         with open('output.txt', 'a') as f:
-            f.write(f"successfully updated buoy data at {current_date}\n")
-            f.write(f"with {n} rows\n")
+            f.write(f"successfully updated buoy data at {datetime.now()}\n")
+            f.write(f" ... with {n} rows\n")
     except: 
         with open('output.txt', 'a') as f: 
-            f.write("failed to update data\n")
+            f.write(f"failed to update data at {datetime.now()}\n")
 
-    update_conditions()
+    # update_conditions()
 
 schedule.every().day.at("06:00").do(update_buoy_data)
 schedule.every().day.at("12:00").do(update_buoy_data)
 schedule.every().day.at("18:00").do(update_buoy_data)
 schedule.every().day.at("00:00").do(update_buoy_data)
 
-# update_buoy_data()
+update_buoy_data()
 # Main loop to keep the script running
 while True:
     schedule.run_pending()

@@ -1,8 +1,52 @@
-going to init data at 2023-09-10 21:33:00.374332
-successfully init buoy data at 2023-09-10 21:33:00.374332
-successfully updated buoy data at 2023-09-10 21:38:35.850701
-successfully updated buoy data at 2023-09-10 21:46:15.754809
-with 1 rowsupdated conditions data
-successfully updated buoy data at 2023-09-10 21:51:31.651947
-with 4 rows
+beginning buoy update at 2023-09-10 23:14:26.007015
+successfully updated buoy data at 2023-09-10 23:14:37.901604
+ ... with 0 rows
 updated conditions data
+
+successfully updated buoy data at 2023-09-11 00:00:42.060840
+ ... with 2 rows
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-11 08:46:10.574961
+successfully updated buoy data at 2023-09-11 08:46:37.125098
+ ... with 1229 rows
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-11 12:01:36.890257
+successfully updated buoy data at 2023-09-11 12:02:01.532329
+ ... with 420 rows
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-11 18:25:17.030541
+failed to update data at 2023-09-11 18:25:17.052200
+
+ 
+beginning buoy update at 2023-09-11 18:27:11.050592
+successfully updated buoy data at 2023-09-11 18:28:05.681266
+ ... with 884 rows
+updated conditions data
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-12 00:00:04.140577
+successfully updated buoy data at 2023-09-12 00:00:42.701484
+ ... with 738 rows
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-12 07:29:25.541830
+successfully updated buoy data at 2023-09-12 07:30:08.564388
+ ... with 998 rows
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-12 12:12:24.529790
+failed to update data at 2023-09-12 12:12:42.161186
+updated conditions data
+
+ 
+beginning buoy update at 2023-09-12 12:15:01.785937
+failed to update data at 2023-09-12 14:35:40.487449
