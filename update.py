@@ -65,7 +65,7 @@ def update_buoy_data():
         with open('output.txt', 'a') as f: 
             f.write(f"failed to update data at {datetime.now()}\n")
 
-    # update_conditions()
+    update_conditions()
 
 schedule.every().day.at("06:00").do(update_buoy_data)
 schedule.every().day.at("12:00").do(update_buoy_data)

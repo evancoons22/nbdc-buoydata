@@ -7,6 +7,7 @@ import re
 LA_lat = 33.8847
 LA_long = -118.4109
 
+
 def getRelevantBuoys():
     text_data = requests.get('https://www.ndbc.noaa.gov/data/stations/station_table.txt').text
     rows = text_data.strip().split('\n')
