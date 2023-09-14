@@ -10,7 +10,7 @@ import functions
 
 
 conn = sqlite3.connect('db.db')
-# df_main.to_sql('main', conn, if_exists='replace', index=False)
+#df_main.to_sql('main', conn, if_exists='replace', index=False)
 
 
 def update_conditions(): 
