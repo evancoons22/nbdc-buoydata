@@ -115,3 +115,35 @@ def builddata(df_buoys):
 
     # df_main = df_main.rename(columns = {"mm": "minutes", "#YY": "Year", "MM":"Month", "DD":"Day"})
     return df_main
+
+
+def cleanData(df): 
+    data = df[['datetime', 'buoy_id', 'WVHT', 'MWD', 'APD']]
+    data = data[data['datetime'] > '2023-07-31']
+    data = data[data['APD'] != 'MM']
+    # just get hourly data, do not worry about minutes
+    data['datetime'] = pd.to_datetime(data['datetime'])
+    data['datetime'] = data['datetime'].dt.floor('H')
+
+    #convert types of WVHT, MWD, and APD to float
+    data['WVHT'] = data['WVHT'].astype(float)
+    data['MWD'] = data['MWD'].astype(float)
+    data['APD'] = data['APD'].astype(float)
+    return data
+
+def buildnparray(data): 
+    # the index should be days in datetime days and hours, not every date
+    ptable = data.pivot_table(index = 'datetime', columns = 'buoy_id', values = ['WVHT', 'MWD', 'APD'], aggfunc = 'mean')
+
+    ptable = ptable.values
+    reshaped_array = ptable.reshape(ptable.shape[0], ptable.shape[1]) 
+    # there are 76 buoys
+    nbuoys = data['buoy_id'].unique()
+
+    # use this for the result
+    result = np.array((reshaped_array[:, :76], reshaped_array[:, 76:152], reshaped_array[:, 152:228]))
+
+    return result
+
+
+
