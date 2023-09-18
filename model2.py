@@ -18,7 +18,3 @@ data = functions.buildnparray(functions.cleanData(data)))
 # create a new column that days ago from the date of the most recent buoy that is '46221'
 use_date = data[data['buoy_id'] == '46221'].iloc[0]['datetime']
 data['days_ago'] = data.apply(lambda row: (pd.to_datetime(use_date) - pd.to_datetime(row['datetime'])).days, axis = 1)
-
-
-# split the data into all buoys, and buoy 46221
-

@@ -24,6 +24,7 @@ def update_conditions():
         pass
 
 def init_buoy_data():
+    conn = sqlite3.connect('db.db')
     # current_date = datetime.now()
     with open('output.txt', 'w') as f: 
         f.write(f"going to init data at {datetime.now()}\n")
@@ -43,7 +44,7 @@ def update_buoy_data():
     with open('output.txt', 'a') as f: 
         f.write(f"\n \nbeginning buoy update at {datetime.now()}\n")
     try:
-        # current_date = datetime.now()
+        conn = sqlite3.connect('db.db')
         df_buoys = functions.getRelevantBuoys()
         df_buoys = df_buoys.rename(columns = {"# STATION_ID": "buoy_id"})
 

@@ -117,8 +117,8 @@ def builddata(df_buoys):
     return df_main
 
 
-def cleanData(df): 
-    data = df[['datetime', 'buoy_id', 'WVHT', 'MWD', 'APD']]
+def cleanData(data): 
+    data = data[['datetime', 'buoy_id', 'WVHT', 'MWD', 'APD']]
     data = data[data['datetime'] > '2023-07-31']
     data = data[data['APD'] != 'MM']
     # just get hourly data, do not worry about minutes
@@ -141,7 +141,7 @@ def buildnparray(data):
     nbuoys = data['buoy_id'].unique()
 
     # use this for the result
-    result = np.array((reshaped_array[:, :76], reshaped_array[:, 76:152], reshaped_array[:, 152:228]))
+    result = np.array((reshaped_array[:, :nbuoys], reshaped_array[:, nbuoys:nbuoys * 2], reshaped_array[:, nbuoys*2:nbuoys * 3]))
 
     return result
 
