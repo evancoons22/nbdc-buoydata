@@ -52,6 +52,7 @@ def update_buoy_data():
 
         n = 0
 
+        # get new data for each buoy
         for buoy_id in unique_buoy_ids['buoy_id']:
             df_main = functions.builddata(df_buoys[df_buoys['buoy_id'] == buoy_id])
             existing_dates = pd.read_sql_query(f"SELECT datetime FROM main WHERE buoy_id = '{buoy_id}'", conn)

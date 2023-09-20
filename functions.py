@@ -30,6 +30,7 @@ def getBuoyData(buoyid):
     # Split the text into rows using newline characters
     # trying to get new data
     rows = requests.get(f'https://www.ndbc.noaa.gov/data/realtime2/{buoyid}.spec')
+    # handle bad response
     rows.raise_for_status()
     
     # handling data if request is successful
