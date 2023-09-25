@@ -30,6 +30,11 @@ num_epochs = 50      # Number of training epochs
 data_tensor = torch.Tensor(data) # convert to pytorch tensor
 print("data tensor", data_tensor.shape)
 
+
+data_tensor = torch.reshape(data_tensor, (-1, 3))
+nan_mask = torch.isnan(data_tensor)
+data_tensor[nan_mask] = 0
+
 # Create input sequences and corresponding target values
 input_sequences = []
 target_values = []
@@ -40,9 +45,9 @@ for i in range(len(data) - sequence_length):
     input_sequences.append(input_seq)
     target_values.append(target_val)
 
+# print("input sequences", input_sequences.shape)
 input_sequences = torch.stack(input_sequences)
 target_values = torch.stack(target_values)
-print("input sequences", input_sequences.shape)
 
 # Create a DataLoader for batching
 # dataloader allows efficient use of memory
@@ -74,12 +79,21 @@ model = WaveForecastingRNN(input_size, hidden_size, num_layers, output_size)
 criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+losses = []
 # Training loop
 for epoch in range(num_epochs):
     for inputs, targets in dataloader:
         optimizer.zero_grad()
         outputs = model(inputs)
         loss = criterion(outputs, targets)
+        losses.append(loss.item())
         loss.backward()
         optimizer.step()
     print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
+
+torch.save(model.state_dict(), 'model_weights.pth')
+
+# plot losses
+
+import matplotlib.pyplot as plt 
+plt.plot(losses)

@@ -146,6 +146,6 @@ def buildnparray(data):
 
     result = np.transpose(result, (1, 2, 0))
 
-    print(result)
+    print(result.shape)
 
     return result
