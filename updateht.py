@@ -6,7 +6,11 @@ from datetime import datetime
 # Run the R script and get the output
 result = subprocess.run(['Rscript', '--vanilla', 'surfscrape.R'], capture_output=True, text=True)
 ht = result.stdout.strip()
+i = 0
 while not ht:
+    if i == 10: 
+        break
+    i += 1
     time.sleep(1)
     ht = result.stdout.strip()
 
