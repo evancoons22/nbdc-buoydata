@@ -139,12 +139,13 @@ def buildnparray(data):
     ptable = ptable.values
     reshaped_array = ptable.reshape(ptable.shape[0], ptable.shape[1]) 
     # there are 76 buoys
-    nbuoys = data['buoy_id'].unique()
+    nbuoys = len(data['buoy_id'].unique())
 
     # use this for the result
     result = np.array((reshaped_array[:, :nbuoys], reshaped_array[:, nbuoys:nbuoys * 2], reshaped_array[:, nbuoys*2:nbuoys * 3]))
 
+    result = np.transpose(result, (1, 2, 0))
+
+    print(result)
+
     return result
-
-
-
