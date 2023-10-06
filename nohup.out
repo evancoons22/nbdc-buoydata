@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/Users/evancoons/projects/nbdc-buoydata/updateht.py", line 19, in <module>
+    ht = re.search(r'"(.*?)"', ht).group(1)
+AttributeError: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "/Users/evancoons/projects/nbdc-buoydata/updateht.py", line 19, in <module>
+    ht = re.search(r'"(.*?)"', ht).group(1)
+AttributeError: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "/Users/evancoons/projects/nbdc-buoydata/updateht.py", line 19, in <module>
+    ht = re.search(r'"(.*?)"', ht).group(1)
+AttributeError: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "/Users/evancoons/projects/nbdc-buoydata/run_model.py", line 52, in <module>
+    time.sleep(60*60) # wait 24 hours
+NameError: name 'time' is not defined
+  File "/Users/evancoons/projects/nbdc-buoydata/run_model.py", line 43
+    print("did not insert into predictions table at ", datetime.datetime.now())")
+                                                                                 ^
+SyntaxError: EOL while scanning string literal
+  File "/Users/evancoons/projects/nbdc-buoydata/run_model.py", line 43
+    print("did not insert into predictions table at ", datetime.datetime.now())")
+                                                                                 ^
+SyntaxError: EOL while scanning string literal
