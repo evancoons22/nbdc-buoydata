@@ -1,0 +1,7 @@
+import libsql_client
+
+client = libsql_client.create_client_sync(
+    url="https://database-evancoons22.turso.io"
+    auth_token="eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOiIyMDIzLTEwLTA2VDAyOjMwOjAxLjU3MTQzNjYyWiIsImlkIjoiMmFkMGU4YzItNjNlZS0xMWVlLWJkOGEtYmEwODY4NDk5ODNhIn0.eAXfPS3nGRpUxZaascfdtQnNN0qyXZD9ZsKYPHG5lKdiN-Cd8UyoFk80QS7Vp2z07DSQ8927RBmOkRqjt2CDCg"
+)
+
