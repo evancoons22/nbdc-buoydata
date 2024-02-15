@@ -32,7 +32,7 @@ def init_buoy_data():
     try: 
         df_buoys = functions.getRelevantBuoys()
         df_main = functions.builddata(df_buoys)
-        df_main.to_sql('main', conn, if_exists='append', index=False)
+        df_main.to_sql('test', conn, if_exists='append', index=False)
         with open('output.txt', 'a') as f:
             f.write(f"successfully init buoy data at {datetime.now()}\n")
     except: 
@@ -122,7 +122,8 @@ def turso_test():
 # schedule.every().day.at("18:00").do(update_buoy_data)
 # schedule.every().day.at("00:00").do(update_buoy_data)
 
-update_buoy_data()
+# update_buoy_data()
+init_buoy_data()
 # Main loop to keep the script running
 # while True:
     # schedule.run_pending()
