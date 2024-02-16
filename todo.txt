@@ -1,0 +1,11 @@
+Updates that need to be made: 
+- remove model2.py, train model from ipynb instead
+- change runmodel to insert into remote database
+- update main sqlite3 table
+    - handle non existing buoys for queries
+    - label data
+    - impute missing buoys
+    - handle queries that don't get anything. Insert na into table if not there
+    - end goal: we want complete data for training. Buoys will generally remain the same
+    - do I want to go back and fill in NAs if the api for a buoy comes back online? 
+

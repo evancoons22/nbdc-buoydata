@@ -21,8 +21,14 @@ def getRelevantBuoys():
     df_buoys = pd.DataFrame(data, columns = headers)
     
     # add a column real quick
-    df_buoys['angletoLA'] = df_buoys.apply(lambda row: calculate_angle(row.LOCATION), axis = 1)
+    # df_buoys['angletoLA'] = df_buoys.apply(lambda row: calculate_angle(row.LOCATION), axis = 1)
+    df_buoys['buoylat'] = df_buoys.apply(lambda row: getPosition(row.LOCATION)[0], axis = 1)
+    df_buoys['buoylong'] = df_buoys.apply(lambda row: getPosition(row.LOCATION)[1], axis = 1)
     return df_buoys
+
+def getPosition(coords): 
+    buoylat, buoylong = parse_coordinates(coords) if isinstance(coords, str) else coords
+    return (buoylat, buoylong)
 
 
 
@@ -84,7 +90,7 @@ def isValidBuoy(deg, long):
 def builddata(df_buoys):
     # Convert Year, Month, Day, Hour, minute into one datetime column
        
-    cols = ['buoy_id', '#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD']
+    cols = ['buoy_id', '#YY', 'MM', 'DD', 'hh', 'mm', 'WVHT', 'SwH', 'SwP', 'WWH', 'WWP', 'SwD', 'WWD', 'STEEPNESS', 'APD', 'MWD', 'lat', 'long']
     df_main = pd.DataFrame(columns = cols)
     for i in range(len(df_buoys)):
         lat, long = parse_coordinates(df_buoys.LOCATION.iloc[i])
@@ -94,6 +100,8 @@ def builddata(df_buoys):
             try: 
                 temp = getBuoyData(buoy_id)
                 temp['buoy_id'] = buoy_id
+                temp['lat'] = lat
+                temp['long'] = long
                 df_main = pd.concat([df_main, temp])
             except: 
                 if len(df_buoys) == 1: 
@@ -119,8 +127,8 @@ def builddata(df_buoys):
 
 
 def cleanData(data): 
-    data = data[['datetime', 'buoy_id', 'WVHT', 'MWD', 'APD']]
-    data = data[data['datetime'] > '2023-07-31']
+    data = data[['datetime', 'buoy_id', 'WVHT', 'MWD', 'APD', 'lat', 'long']]
+    data = data[data['datetime'] > '2024-01-01']
     data = data[data['APD'] != 'MM']
     # just get hourly data, do not worry about minutes
     data['datetime'] = pd.to_datetime(data['datetime'])
